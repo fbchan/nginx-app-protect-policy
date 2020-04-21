@@ -30,8 +30,6 @@
         group: root
         force: yes
       become: yes
-      notify: 
-       - reload nginx
     - name: "# TASK 02 # - Apply and Reload App Protect Policy"
       service:
         name: nginx
