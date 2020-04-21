@@ -1,0 +1,62 @@
+{
+  "name": "waf-policy-dmz",
+  "template": {
+    "name": "POLICY_TEMPLATE_NGINX_BASE"
+  },
+  "applicationLanguage": "utf-8",
+  "server-technologies": [
+   {
+     "serverTechnologyName": "Unix/Linux"
+   },
+   {
+     "serverTechnologyName": "PHP"
+   }
+  ],
+  "signature-settings":{
+        "signatureStaging": false
+  },
+  "modifications":[
+
+  ],
+  "enforcementMode": "blocking",
+  "signatures": [
+  {
+      "signatureId": 200001475,
+      "enabled": false  
+  }, 
+  {
+      "signatureId": 200000098,
+      "enabled": false  
+  }, 
+  {
+      "signatureId": 200001088,
+      "enabled": false 
+  } 
+  ],
+  "blocking-settings": {
+   "violations": [
+    {
+      "name": "VIOL_HTTP_PROTOCOL",
+      "alarm": true,
+      "block": false
+    }, 
+    {
+      "name": "VIOL_PARAMETER_VALUE_METACHAR",
+      "alarm": false,
+      "block": false
+    }, 
+    {
+      "name": "VIOL_EVASION",
+      "alarm": true,
+      "block": false
+    } 
+  ]
+  },
+  "signature-sets": [
+    {
+            "name": "High Accuracy Signatures",
+            "block": true,
+            "alarm": true
+    }
+  ]
+}

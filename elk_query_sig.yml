@@ -1,0 +1,36 @@
+#!/usr/bin/env ansible-playbook
+
+###############################################################################
+# Elasticsearch with support ID
+# Example: ansible-playbook elk_query_sig.yml -e support_id=7433281905790294428
+# Author: Foo-Bang (fb@f5.com)
+# Version: 0.01
+###############################################################################
+---
+- name: "### PLAY 01 ### - Query Elasticsearch"
+  hosts: localhost
+  connection: local
+  gather_facts: False
+  vars:
+    elk_ip: 192.168.211.11:9200
+    support_id: "{{ support_id }}"
+  tasks:
+    - name: "# TASK 01 # - Query elasticsearch"
+      uri:
+        url: "http://{{ elk_ip }}/_search?pretty"
+        method: GET
+        body: "{\"query\":{\"match\":{\"message\":{\"query\":\"{{ support_id }}\"}}}}"
+        body_format: json
+        return_content: yes
+      register: data
+
+    - name: "# TASK 02 # Print output"
+      vars:
+        var: |
+          Log Source: '{{ data.json.hits.hits[0]._source.logsource }}'
+          Signature Name: '{{ data.json.hits.hits[0]._source.sig_names }}'
+          Signature IDs: '{{ data.json.hits.hits[0]._source.sig_ids }}'
+      debug:
+        msg: "{{ var.split('\n') }}"
+      with_items:
+        - "{{ var }}"

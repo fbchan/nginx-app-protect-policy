@@ -1,0 +1,71 @@
+{
+  "name": "waf-policy-dmz",
+  "template": {
+    "name": "POLICY_TEMPLATE_NGINX_BASE"
+  },
+  "applicationLanguage": "utf-8",
+  "server-technologies": [
+{% for srvtech in server_tech %}
+   {
+     "serverTechnologyName": "{{srvtech.name}}"
+{% if loop.last %}
+   }
+{% else %}
+   },
+{% endif %}
+{% endfor %}
+  ],
+  "signature-settings":{
+        "signatureStaging": false
+  },
+  "modifications":[
+
+  ],
+  "enforcementMode": "{{enforementMode}}",
+  "signatures": [
+{% if exception_signature is defined %}
+{% for sigid in exception_signature %}
+  {
+      "signatureId": {{sigid.id}},
+      "enabled": false {% if loop.last %}
+
+  } 
+{% else %} 
+  }, 
+{% endif %}
+{% endfor %}
+{% endif %}
+  ],
+  "blocking-settings": {
+   "violations": [
+{% if block_violation is defined %}
+{% for viol in block_violation %}
+    {
+      "name": "{{viol.name}}",
+      "alarm": {{viol.alarm_switch | lower}},
+      "block": {{viol.block_switch | lower}}
+{% if loop.last %}
+    } 
+{% else %}
+    }, 
+{% endif %}
+{% endfor %}
+{% endif %}
+  ]
+  },
+  "signature-sets": [
+{% if sig_set is defined %}
+{% for sigset in sig_set %}
+    {
+            "name": "{{sigset.name}}",
+            "block": {{sigset.alarm_switch | lower}},
+            "alarm": {{sigset.alarm_switch | lower}}
+{% if loop.last %}
+    }
+{% else %}
+    },
+{% endif %}
+{% endfor %}
+{% endif %}
+  ]
+}

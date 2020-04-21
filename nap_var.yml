@@ -1,0 +1,37 @@
+
+server_tech:
+- tech1:
+  name: Unix/Linux
+- tech2:
+  name: PHP
+
+enforementMode: blocking
+
+exception_signature:
+ - id: 200001475
+ - id: 200000098
+ - id: 200001088
+# - id: 200000097
+# - id: 200000091
+# - id: 200001089
+
+block_violation:
+- violation1:
+  name: VIOL_HTTP_PROTOCOL
+  alarm_switch: true
+  block_switch: false
+- violation2:
+  name: VIOL_PARAMETER_VALUE_METACHAR 
+  alarm_switch: false
+  block_switch: false
+- violation3:
+  name: VIOL_EVASION
+  alarm_switch: true
+  block_switch: false
+
+sig_set:
+- sig_set1:
+  name: High Accuracy Signatures
+  alarm_switch: true
+  block_switch: true
+

@@ -1,0 +1,39 @@
+#!/usr/bin/env ansible-playbook
+
+###############################################################################
+# Ansible Playbook for NGINX App Protect Policy Management
+# Example: ansible-playbook -i inventory nap_play.yml
+# Author: Foo-Bang (fb@f5.com)
+# Version: 0.01
+###############################################################################
+---
+- name: "### PLAY 01 ### - Create NGINX App Protect Policy"
+  hosts: localhost
+  connection: local
+  gather_facts: False
+  vars_files:
+    - nap_var.yml
+  tasks:
+    - name: " # TASK 01 # - Generating NGINX App Protect policy enforcement"
+      template:
+        src: nap_base.j2
+        dest: nap_out.json
+
+- name: "### PLAY 02 ### - Transfering App Protect Policy Enforcement"
+  hosts: app_protect
+  tasks:
+    - name: "# TASK 01 # - Transferring policy for enforcement"
+      copy:
+        src: ./nap_out.json
+        dest: /etc/nginx/high-risk-policy.json
+        owner: root
+        group: root
+        force: yes
+      become: yes
+      notify: 
+       - reload nginx
+    - name: "# TASK 02 # - Apply and Reload App Protect Policy"
+      service:
+        name: nginx
+        state: reloaded
+      become: yes
