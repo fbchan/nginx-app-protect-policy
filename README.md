@@ -7,7 +7,7 @@ Only require to define configuration object in nap_var.yml. Currently only build
 
 ## Example
 
-Note: You may need to update inventory file to specify your server
+Note: You may need to update inventory file to specify your server IP.
 ```
 $ ansible-playbook -i inventory nap_play.yml
 
@@ -138,7 +138,7 @@ PLAY RECAP *********************************************************************
 localhost                  : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
 
-To perform signature IDs exception, add those signature IDs in nap_var.yml.
+To perform signature IDs exception, add those signature IDs in nap_var.yml and re-rum nap_play.yml to enforce those policy onto app protect.
 
 Example
 ```
