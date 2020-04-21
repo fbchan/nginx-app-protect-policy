@@ -7,7 +7,7 @@ Only require to define configuration object in nap_var.yml. Currently only build
 
 ## Example
 
-Note: You may need to update inventory file to specify your server IP.
+Note: You may need to update inventory file to specify your server IP and policy reference.
 ```
 $ ansible-playbook -i inventory nap_play.yml
 
