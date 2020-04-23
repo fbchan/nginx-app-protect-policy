@@ -7,10 +7,10 @@ server_tech:
 
 enforementMode: blocking
 
-exception_signature:
- - id: 200001475
- - id: 200000098
- - id: 200001088
+#exception_signature:
+# - id: 200001475
+# - id: 200000098
+# - id: 200001088
 # - id: 200000097
 # - id: 200000091
 # - id: 200001089
